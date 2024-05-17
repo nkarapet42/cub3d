@@ -1,0 +1,19 @@
+// printf("%s\n", vars.npath);
+	// printf("%s\n", vars.epath);
+	// printf("%s\n", vars.spath);
+	// printf("%s\n", vars.wpath);
+	// printf("%s\n", vars.fcolor);
+	// printf("%s\n", vars.rcolor);
+	free(map);
+	// printf("%s\n", vars.map->row);
+	// while(vars.map->next)
+	// {
+	// 	printf("%s\n", vars.map->next->row);
+	// 	vars.map = vars.map->next;
+	// }
+	// printf("\n\n%p\n\n", vars.map);
+	// while(vars.map)
+	// {
+	// 	printf("%s\n", vars.map->row);
+	// 	vars.map = vars.map->prev;
+	// }
