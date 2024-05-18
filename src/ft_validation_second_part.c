@@ -6,7 +6,7 @@
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:13:16 by nkarapet          #+#    #+#             */
-/*   Updated: 2024/05/18 15:24:25 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/05/18 16:09:49 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	check_maze(t_info vars)
 		j = 1;
 		while (map->row[j + 1])
 		{
-			if ((j > map->next->len || j > map->prev->len)
+			if ((j > map->next->len - 1 || j > map->prev->len - 1)
 				&& map->row[j] != '1' && check(map->row[j]) == 0)
 				ft_free_vars(&vars, 1, "Wrong map");
 			if (check(map->row[j]) == 1 || map->row[j] == '1')
