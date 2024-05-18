@@ -5,44 +5,16 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/14 19:24:06 by nkarapet          #+#    #+#             */
-/*   Updated: 2024/05/17 17:02:08 by nkarapet         ###   ########.fr       */
+/*   Created: 2024/05/17 21:17:07 by nkarapet          #+#    #+#             */
+/*   Updated: 2024/05/18 14:05:26 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void	check_whitespaces(char **res)
+int	ft_check_set(char const *set, char const str)
 {
-	char	*temp;
-	int		i;
-
-	temp = NULL;
-	i = 0;
-	while (res[i])
-	{
-		temp = res[i];
-		res[i] = ft_strtrim(res[i], " \t\n\v\f\r");
-		free(temp);
-		i++;
-	}
-	i--;
-	if (res[i][0] == '\0')
-	{
-		while (i >= 0 && res[i][0] == '\0')
-		{
-			free(res[i]);
-			res[i] = NULL;
-			i--;
-		}
-		if (i == -1)
-			free_and_error(res, 1, "Empty map");
-	}
-}
-
-size_t	ft_check(char *set, char str)
-{
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (set[i] != '\0')
@@ -54,24 +26,47 @@ size_t	ft_check(char *set, char str)
 	return (0);
 }
 
-char	*ft_strtrim(char *s1, char *set)
+size_t	ft_startlen(const char *s1, const char *set)
+{
+	int	i;
+
+	i = 0;
+	while (s1[i] != '\0' && ft_check_set(set, s1[i]))
+		i++;
+	while (s1[i] != '\n' && i > 0)
+		i--;
+	return (i);
+}
+
+int	ft_size(int start, int end)
+{
+	int	size;
+
+	size = 0;
+	size = end - start;
+	return (size);
+}
+
+char	*ft_strtrim_all(char *s1, char *set)
 {
 	char	*res;
-	size_t	i;
-	size_t	end;
+	int		i;
+	int		start;
+	int		end;
 
 	if (!s1 || !set)
 		return (NULL);
-	end = ft_strlen(s1);
-	while (end > 0 && ft_check(set, s1[end - 1]))
+	start = ft_startlen(s1, set);
+	end = ft_strlen((char *)s1);
+	while (end > start && ft_check_set(set, s1[end - 1]))
 		end--;
-	res = (char *)malloc(sizeof(char) * (end + 1));
+	res = (char *)malloc(sizeof(char) * (ft_size(start, end) + 1));
 	if (!res)
 		return (NULL);
 	i = 0;
-	while (i < end)
+	while (i < ft_size(start, end))
 	{
-		res[i] = s1[i];
+		res[i] = s1[start + i];
 		i++;
 	}
 	res[i] = '\0';

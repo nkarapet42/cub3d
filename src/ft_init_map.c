@@ -6,35 +6,32 @@
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 14:34:11 by nkarapet          #+#    #+#             */
-/*   Updated: 2024/05/17 17:13:32 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/05/18 15:26:33 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void	path_check(t_info *vars, char	**s, int i, int j)
+void	path_init(t_info *vars, char	**s, int i, int j)
 {
-	init_vars(&vars);
-	if (s[i][j] == 'N' && s[i][j + 1] == 'O' && check(s[i][j + 2]) == 1)
-		vars->npath = s[i];
-	else if (s[i][j] == 'S' && s[i][j + 1] == 'O'
-		&& check(s[i][j + 2]) == 1)
-		vars->spath = s[i];
-	else if (s[i][j] == 'E' && s[i][j + 1] == 'A'
-		&& check(s[i][j + 2]) == 1)
-		vars->epath = s[i];
-	else if (s[i][j] == 'W' && s[i][j + 1] == 'E'
-		&& check(s[i][j + 2]) == 1)
-		vars->wpath = s[i];
-	else if (s[i][j] == 'F' && check(s[i][j + 1]) == 1)
-		vars->fcolor = s[i];
-	else if (s[i][j] == 'C' && check(s[i][j + 1]) == 1)
-		vars->rcolor = s[i];
+	if (s[i][j] == 'N' && s[i][j + 1] == 'O' && check(s[i][j + 2]) == 1
+		&& !vars->npath)
+		vars->npath = path_cut(&s[i], "NO", s, 1);
+	else if (s[i][j] == 'S' && s[i][j + 1] == 'O' && check(s[i][j + 2]) == 1
+		&& !vars->spath)
+		vars->spath = path_cut(&s[i], "SO", s, 1);
+	else if (s[i][j] == 'E' && s[i][j + 1] == 'A' && check(s[i][j + 2]) == 1
+		&& !vars->epath)
+		vars->epath = path_cut(&s[i], "EA", s, 1);
+	else if (s[i][j] == 'W' && s[i][j + 1] == 'E' && check(s[i][j + 2]) == 1
+		&& !vars->wpath)
+		vars->wpath = path_cut(&s[i], "WE", s, 1);
+	else if (s[i][j] == 'F' && check(s[i][j + 1]) == 1 && !vars->fcolor)
+		vars->fcolor = path_cut(&s[i], "F", s, 0);
+	else if (s[i][j] == 'C' && check(s[i][j + 1]) == 1 && !vars->rcolor)
+		vars->rcolor = path_cut(&s[i], "C", s, 0);
 	else
-	{
-		ft_free_vars(vars, 0, "");
 		free_and_error(s, 1, "Something went wrong with path");
-	}
 }
 
 void	init_pathcolor(t_info *vars, char **s)
@@ -43,6 +40,7 @@ void	init_pathcolor(t_info *vars, char **s)
 	int	j;
 
 	i = 0;
+	init_vars(&vars);
 	while (s[i])
 	{
 		if (i == 6)
@@ -50,7 +48,7 @@ void	init_pathcolor(t_info *vars, char **s)
 		j = 0;
 		while (check(s[i][j]) == 1)
 			j++;
-		path_check(vars, s, i, j);
+		path_init(vars, s, i, j);
 		i++;
 	}
 }
@@ -88,5 +86,7 @@ void	init_map_info(char **map)
 	init_pathcolor(&vars, map);
 	init_map(&vars, map);
 	free(map);
+	got_color_floor(&vars, vars.fcolor);
+	got_color_roof(&vars, vars.rcolor);
 	map_validation(vars);
 }

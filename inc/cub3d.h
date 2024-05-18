@@ -6,7 +6,7 @@
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 16:25:48 by nkarapet          #+#    #+#             */
-/*   Updated: 2024/05/17 17:09:15 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/05/18 15:35:39 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,13 @@
 # include <limits.h>
 # include <string.h>
 # include "../mlx/mlx.h"
+
+typedef struct s_color
+{
+	int	r;
+	int	g;
+	int	b;
+}	t_color;
 
 typedef struct s_map
 {
@@ -37,6 +44,8 @@ typedef struct s_info
 	char	*spath;
 	char	*wpath;
 	char	*epath;
+	t_color	f_color;
+	t_color	r_color;
 	t_map	*map;
 }	t_info;
 
@@ -57,19 +66,24 @@ char	**ft_spliting(char **res);
 void	start_parsing(int fd);
 
 //ft_util_split.c
+int		ft_ischar(char const s, char *c);
 char	**ft_split(char const *s, char *c);
 
-//ft_util_trim.c
+//ft_util_trim_end.c
 void	check_whitespaces(char **res);
 size_t	ft_check(char *set, char str);
 char	*ft_strtrim(char *s1, char *set);
 
 //ft_init_map.c
-void	path_check(t_info *vars, char	**s, int i, int j);
+void	path_init(t_info *vars, char	**s, int i, int j);
 void	init_pathcolor(t_info *vars, char **s);
 void	init_vars(t_info **vars);
 void	init_map(t_info *vars, char **mapi);
 void	init_map_info(char **map);
+
+//ft_init_color.c
+void	got_color_floor(t_info *vars, char *color);
+void	got_color_roof(t_info *vars, char *color);
 
 //ft_validation.c
 void	check_updown_walls(t_info vars);
@@ -79,7 +93,17 @@ void	check_objects(t_info vars);
 void	map_validation(t_info vars);
 
 //ft_validation_second_part.c
+char	*path_cut(char **path, char *s, char **info, int flag);
+void	check_color(t_info vars);
+void	check_door(t_info vars);
 void	check_maze(t_info vars);
+
+//ft_util_atoi.c
+int		ft_isdigit(int c);
+int		ft_atoi(char *str);
+
+//ft_util_trim.c
+char	*ft_strtrim_all(char *s1, char *set);
 
 //ft_util_list.c
 void	ft_lstclear(t_map **lst);

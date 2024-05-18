@@ -16,8 +16,11 @@ SRCS_NAME = cub3d.c \
 			ft_parsing.c \
 			ft_util_split.c \
 			ft_util_list.c \
+			ft_util_atoi.c \
 			ft_util_trim.c \
+			ft_util_trim_end.c \
 			ft_init_map.c \
+			ft_init_color.c \
 			ft_validation.c \
 			ft_validation_second_part.c \
 			ft_free.c \
