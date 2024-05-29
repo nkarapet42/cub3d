@@ -6,7 +6,7 @@
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 16:35:27 by nkarapet          #+#    #+#             */
-/*   Updated: 2024/05/17 20:15:24 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/05/20 17:50:54 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_lstclear(t_map **lst)
 	*lst = NULL;
 }
 
-t_map	*ft_lstnew(int len, char *row)
+t_map	*ft_lstnew(int len, char *row, int index)
 {
 	t_map	*res;
 
@@ -37,6 +37,7 @@ t_map	*ft_lstnew(int len, char *row)
 		return (NULL);
 	res->len = len;
 	res->row = row;
+	res->index = index;
 	res->prev = NULL;
 	res->next = NULL;
 	return (res);
@@ -51,7 +52,7 @@ void	ft_addstack(t_map	**stack, char **res)
 	tmp = *stack;
 	while (res[i])
 	{
-		(*stack)->next = ft_lstnew(ft_strlen(res[i]), res[i]);
+		(*stack)->next = ft_lstnew(ft_strlen(res[i]), res[i], i - 6);
 		if (!(*stack)->next)
 		{
 			ft_lstclear(&tmp->next);

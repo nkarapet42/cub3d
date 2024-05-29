@@ -6,7 +6,7 @@
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 16:47:27 by nkarapet          #+#    #+#             */
-/*   Updated: 2024/05/17 20:14:50 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/05/23 18:44:17 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	ft_free_vars(t_info *vars, int flag, char *s)
 	free(vars->fcolor);
 	free(vars->rcolor);
 	ft_lstclear(&vars->map);
+	if (vars->maze)
+		free(vars->maze);
 	free(vars->map);
 	vars->npath = NULL;
 	vars->wpath = NULL;
@@ -48,4 +50,6 @@ void	ft_free_vars(t_info *vars, int flag, char *s)
 	vars->rcolor = NULL;
 	if (flag == 1)
 		exit(1 && printf("%s\n", s));
+	else if (flag == 2)
+		exit(0);
 }

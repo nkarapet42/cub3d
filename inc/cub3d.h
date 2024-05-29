@@ -6,20 +6,55 @@
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 16:25:48 by nkarapet          #+#    #+#             */
-/*   Updated: 2024/05/18 15:35:39 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/05/23 18:35:04 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include <unistd.h>
-# include <stdlib.h>
+# include <math.h>
 # include <fcntl.h>
 # include <stdio.h>
+# include <unistd.h>
+# include <stdlib.h>
 # include <limits.h>
 # include <string.h>
 # include "../mlx/mlx.h"
+
+# define ESC 53
+# define W 13
+# define A 0
+# define S 1
+# define D 2
+# define LARROW 123
+# define RARROW 124
+
+typedef struct s_ray
+{
+	int		wd;
+	int		ht;
+	int		**buffer;
+	double	posX;
+	double	posY;
+	double	dirX;
+	double	dirY;
+	double	planeX;
+	double	planeY;
+}	t_ray;
+
+
+typedef struct s_user
+{
+	double	x;
+	double	y;
+}	t_user;
+
+typedef struct s_img
+{
+	void	*mlx;
+	void	*win;
+}	t_img;
 
 typedef struct s_color
 {
@@ -32,6 +67,7 @@ typedef struct s_map
 {
 	char			*row;
 	int				len;
+	int				index;
 	struct s_map	*next;
 	struct s_map	*prev;
 }	t_map;
@@ -44,9 +80,14 @@ typedef struct s_info
 	char	*spath;
 	char	*wpath;
 	char	*epath;
+	void	*mlx;
 	t_color	f_color;
 	t_color	r_color;
 	t_map	*map;
+	char	**maze;
+	t_img	xpm;
+	t_ray	ray;
+	t_user	pos;
 }	t_info;
 
 //ft_utils.c
@@ -81,7 +122,8 @@ void	init_vars(t_info **vars);
 void	init_map(t_info *vars, char **mapi);
 void	init_map_info(char **map);
 
-//ft_init_color.c
+//ft_init_info.c
+void	got_player_pos(t_info *vars);
 void	got_color_floor(t_info *vars, char *color);
 void	got_color_roof(t_info *vars, char *color);
 
@@ -107,7 +149,13 @@ char	*ft_strtrim_all(char *s1, char *set);
 
 //ft_util_list.c
 void	ft_lstclear(t_map **lst);
-t_map	*ft_lstnew(int len, char *row);
+t_map	*ft_lstnew(int len, char *row, int index);
 void	ft_addstack(t_map	**stack, char **res);
+
+//ft_start_game.c
+void	game_start(t_info vars);
+
+//ft_game_exit.c
+int		press(t_info *vars);
 
 #endif

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_init_color.c                                    :+:      :+:    :+:   */
+/*   ft_init_info.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 15:03:05 by nkarapet          #+#    #+#             */
-/*   Updated: 2024/05/18 15:26:20 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/05/20 17:59:51 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,30 @@ int	got_position(char *color)
 	while (check(color[i]))
 		i++;
 	return (i);
+}
+
+void	got_player_pos(t_info *vars)
+{
+	int		j;
+	t_map	*map;
+
+	map = vars->map;
+	while (map)
+	{
+		j = 0;
+		while (map->row[j])
+		{
+			if (map->row[j] == 'N' || map->row[j] == 'S'
+				|| map->row[j] == 'E' || map->row[j] == 'W')
+			{
+				vars->pos.x = j;
+				vars->pos.y = map->index;
+				return ;
+			}
+			j++;
+		}
+		map = map->next;
+	}
 }
 
 void	got_color_floor(t_info *vars, char *color)

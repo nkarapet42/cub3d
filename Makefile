@@ -20,9 +20,11 @@ SRCS_NAME = cub3d.c \
 			ft_util_trim.c \
 			ft_util_trim_end.c \
 			ft_init_map.c \
-			ft_init_color.c \
+			ft_init_info.c \
 			ft_validation.c \
 			ft_validation_second_part.c \
+			ft_start_game.c \
+			ft_game_exit.c \
 			ft_free.c \
 			get_next_line.c \
 			get_next_line_utils.c \

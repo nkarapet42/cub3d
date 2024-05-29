@@ -6,7 +6,7 @@
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 14:34:11 by nkarapet          #+#    #+#             */
-/*   Updated: 2024/05/18 15:26:33 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/05/23 18:52:06 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,23 @@ void	init_map(t_info *vars, char **mapi)
 void	init_map_info(char **map)
 {
 	t_info	vars;
+	int		count;
 
 	init_pathcolor(&vars, map);
 	init_map(&vars, map);
 	free(map);
 	got_color_floor(&vars, vars.fcolor);
 	got_color_roof(&vars, vars.rcolor);
+	count = 1;
+	while (vars.map->next)
+	{
+		count++;
+		vars.map = vars.map->next;	
+	}
+	vars.maze = malloc(sizeof(char *) * (count + 1));
+	if (!vars.maze)
+		ft_free_vars(&vars, 1, "Malloc error");
+	while(vars.map->prev)
+		vars.map = vars.map->prev;
 	map_validation(vars);
 }
