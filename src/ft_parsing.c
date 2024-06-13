@@ -6,7 +6,7 @@
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 18:24:15 by nkarapet          #+#    #+#             */
-/*   Updated: 2024/05/17 20:15:19 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/13 22:41:00 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ void	start_parsing(int fd)
 		free(temp);
 		temp = get_next_line(fd);
 	}
+	close(fd);
 	res = ft_split(join, "\n");
 	free (join);
 	if (!res[0])

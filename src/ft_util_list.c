@@ -6,7 +6,7 @@
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 16:35:27 by nkarapet          #+#    #+#             */
-/*   Updated: 2024/05/20 17:50:54 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/13 21:34:03 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,11 @@ void	ft_lstclear(t_map **lst)
 {
 	t_map	*tmp;
 
-	if (!lst)
+	if (!lst || !(*lst))
 		return ;
 	while (*lst)
 	{
 		tmp = (*lst)->next;
-		free((*lst)->row);
 		free(*lst);
 		*lst = tmp;
 	}

@@ -6,7 +6,7 @@
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 14:34:11 by nkarapet          #+#    #+#             */
-/*   Updated: 2024/06/13 15:33:40 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/13 22:29:15 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ void	init_map(t_info *vars, char **mapi)
 		ft_addstack(&vars->map, mapi);
 	else
 	{
-		ft_free_vars(vars, 0, "");
-		free_and_error(mapi, 1, "There isn't map");
+		free(mapi);
+		ft_free_vars(vars, 1, "There isn't map");
 	}
 }
 
@@ -84,6 +84,9 @@ void	init_map_info(char **map)
 	t_info	vars;
 	int		count;
 
+	vars.maze = NULL;
+	vars.wall = NULL;
+	vars.map = NULL;
 	init_pathcolor(&vars, map);
 	init_map(&vars, map);
 	free(map);

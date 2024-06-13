@@ -6,13 +6,13 @@
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 13:02:25 by nkarapet          #+#    #+#             */
-/*   Updated: 2024/06/13 20:50:28 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/13 22:41:10 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-int		re_draw(t_info *vars)
+int	re_draw(t_info *vars)
 {
 	mlx_destroy_image(vars->mlx.ptr, vars->img.img);
 	create_image(vars);
