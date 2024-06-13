@@ -24,6 +24,10 @@ SRCS_NAME = cub3d.c \
 			ft_validation.c \
 			ft_validation_second_part.c \
 			ft_start_game.c \
+			ft_move.c \
+			ft_raycasting.c \
+			ft_algoritms.c \
+			ft_draw.c \
 			ft_game_exit.c \
 			ft_free.c \
 			get_next_line.c \

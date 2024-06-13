@@ -6,7 +6,7 @@
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:16:47 by nkarapet          #+#    #+#             */
-/*   Updated: 2024/05/20 18:03:58 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/13 17:10:26 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,6 @@ void	map_validation(t_info vars)
 	check_door(vars);
 	check_color(vars);
 	got_player_pos(&vars);
+	get_maze(&vars);
 	game_start(vars);
 }

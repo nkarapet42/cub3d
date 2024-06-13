@@ -6,7 +6,7 @@
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 15:03:05 by nkarapet          #+#    #+#             */
-/*   Updated: 2024/05/20 17:59:51 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/13 19:57:19 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,34 @@ int	got_position(char *color)
 	return (i);
 }
 
+void	set_dir(t_info *vars, char c)
+{
+	vars->user.dir_x = 0;
+	vars->user.dir_y = 0;
+	vars->user.plane_x = 0;
+	vars->user.plane_y = 0;
+	if (c == 'N')
+	{
+		vars->user.dir_x = -1;
+		vars->user.plane_y = 0.66;
+	}
+	else if (c == 'S')
+	{
+		vars->user.dir_x = 1;
+		vars->user.plane_y = -0.66;
+	}
+	else if (c == 'E')
+	{
+		vars->user.dir_y = 1;
+		vars->user.plane_x = 0.66;
+	}
+	else if (c == 'W')
+	{
+		vars->user.dir_y = -1;
+		vars->user.plane_x = -0.66;
+	}
+}
+
 void	got_player_pos(t_info *vars)
 {
 	int		j;
@@ -40,8 +68,10 @@ void	got_player_pos(t_info *vars)
 			if (map->row[j] == 'N' || map->row[j] == 'S'
 				|| map->row[j] == 'E' || map->row[j] == 'W')
 			{
-				vars->pos.x = j;
-				vars->pos.y = map->index;
+				vars->user.pos_y = j + 0.5;
+				vars->user.pos_x = map->index + 0.5;
+				set_dir(vars, map->row[j]);
+				map->row[j] = 'U';
 				return ;
 			}
 			j++;

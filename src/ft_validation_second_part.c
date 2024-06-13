@@ -6,7 +6,7 @@
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:13:16 by nkarapet          #+#    #+#             */
-/*   Updated: 2024/05/18 16:09:49 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/13 20:18:41 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,25 @@ char	*path_cut(char **path, char *s, char **info, int flag)
 			free_and_error(info, 1, "Invalid texture name (.xpm at the end)");
 	}
 	return (*path);
+}
+
+void	get_maze(t_info *vars)
+{
+	int	i;
+
+	i = 0;
+	vars->map_wd = 1000;
+	vars->map_ht = 720;
+	while (vars->map->next)
+	{
+		vars->maze[i] = vars->map->row;
+		i++;
+		vars->map = vars->map->next;
+	}
+	vars->maze[i++] = vars->map->row;
+	vars->maze[i] = NULL;
+	while (vars->map->prev)
+		vars->map = vars->map->prev;
 }
 
 void	check_color(t_info vars)

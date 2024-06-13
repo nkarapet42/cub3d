@@ -6,7 +6,7 @@
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 14:34:11 by nkarapet          #+#    #+#             */
-/*   Updated: 2024/05/23 18:52:06 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/13 15:33:40 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,12 @@ void	init_map_info(char **map)
 	while (vars.map->next)
 	{
 		count++;
-		vars.map = vars.map->next;	
+		vars.map = vars.map->next;
 	}
 	vars.maze = malloc(sizeof(char *) * (count + 1));
 	if (!vars.maze)
 		ft_free_vars(&vars, 1, "Malloc error");
-	while(vars.map->prev)
+	while (vars.map->prev)
 		vars.map = vars.map->prev;
 	map_validation(vars);
 }

@@ -6,11 +6,29 @@
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 16:47:27 by nkarapet          #+#    #+#             */
-/*   Updated: 2024/05/23 18:44:17 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/13 20:46:14 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
+
+void	destroy_img(t_info *vars)
+{
+	if (vars->wall)
+	{
+		if (vars->wall[0].img)
+			mlx_destroy_image(vars->mlx.ptr, vars->wall[0].img);
+		else if (vars->wall[1].img)
+			mlx_destroy_image(vars->mlx.ptr, vars->wall[1].img);
+		else if (vars->wall[2].img)
+			mlx_destroy_image(vars->mlx.ptr, vars->wall[2].img);
+		else if (vars->wall[3].img)
+			mlx_destroy_image(vars->mlx.ptr, vars->wall[3].img);
+		else if (vars->img.img)
+			mlx_destroy_image(vars->mlx.ptr, vars->img.img);
+		free(vars->wall);
+	}
+}
 
 void	free_and_error(char **str, int flag, char *s)
 {
@@ -38,6 +56,8 @@ void	ft_free_vars(t_info *vars, int flag, char *s)
 	free(vars->epath);
 	free(vars->fcolor);
 	free(vars->rcolor);
+	if (vars->wall)
+		destroy_img(vars);
 	ft_lstclear(&vars->map);
 	if (vars->maze)
 		free(vars->maze);

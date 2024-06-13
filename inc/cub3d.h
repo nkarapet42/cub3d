@@ -6,7 +6,7 @@
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 16:25:48 by nkarapet          #+#    #+#             */
-/*   Updated: 2024/05/23 18:35:04 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/13 20:49:26 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,31 +30,61 @@
 # define LARROW 123
 # define RARROW 124
 
-typedef struct s_ray
+typedef struct s_img
 {
 	int		wd;
 	int		ht;
-	int		**buffer;
-	double	posX;
-	double	posY;
-	double	dirX;
-	double	dirY;
-	double	planeX;
-	double	planeY;
-}	t_ray;
+	int		endian;
+	int		line_length;
+	int		bits_per_pixel;
+	char	*addr;
+	void	*img;
+}	t_img;
 
+typedef struct s_raycasting
+{
+	int		hit;
+	int		side;
+	double	ray_x;
+	double	ray_y;
+	double	camera_x;
+	double	sidedist_x;
+	double	sidedist_y;
+	double	deltadist_x;
+	double	deltadist_y;
+	double	perp_wall_dist;
+}	t_raycasting;
+
+typedef struct s_draw
+{
+	int		tex_x;
+	int		tex_y;
+	int		draw_end;
+	int		draw_start;
+	int		line_height;
+	double	step;
+	double	tex_pos;
+}	t_draw;
 
 typedef struct s_user
 {
-	double	x;
-	double	y;
+	int		map_x;
+	int		map_y;
+	int		step_x;
+	int		step_y;
+	double	pos_x;
+	double	pos_y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
 }	t_user;
 
-typedef struct s_img
+typedef struct s_xpm
 {
-	void	*mlx;
+	void	*ptr;
 	void	*win;
-}	t_img;
+}	t_xpm;
 
 typedef struct s_color
 {
@@ -65,97 +95,129 @@ typedef struct s_color
 
 typedef struct s_map
 {
-	char			*row;
 	int				len;
 	int				index;
+	char			*row;
 	struct s_map	*next;
 	struct s_map	*prev;
 }	t_map;
 
 typedef struct s_info
 {
-	char	*fcolor;
-	char	*rcolor;
-	char	*npath;
-	char	*spath;
-	char	*wpath;
-	char	*epath;
-	void	*mlx;
-	t_color	f_color;
-	t_color	r_color;
-	t_map	*map;
-	char	**maze;
-	t_img	xpm;
-	t_ray	ray;
-	t_user	pos;
+	int				fc;//f_color
+	int				rc;//r_color
+	int				map_wd;
+	int				map_ht;
+	char			*npath;
+	char			*spath;
+	char			*wpath;
+	char			*epath;
+	char			**maze;
+	char			*fcolor;
+	char			*rcolor;
+	t_xpm			mlx;
+	t_user			user;
+	t_img			img;
+	t_raycasting	ray;
+	t_color			f_color;
+	t_color			r_color;
+	t_map			*map;
+	t_img			*wall;
 }	t_info;
 
 //ft_utils.c
-void	*ft_calloc(size_t count, size_t size);
-int		ft_strlen(char *str);
-int		map_name_check(char *str);
+void			*ft_calloc(size_t count, size_t size);
+int				ft_strlen(char *str);
+int				map_name_check(char *str);
 
 //ft_free.c
-void	free_and_error(char **str, int flag, char *s);
-void	ft_free_vars(t_info *vars, int flag, char *s);
+void			destroy_img(t_info *vars);
+void			free_and_error(char **str, int flag, char *s);
+void			ft_free_vars(t_info *vars, int flag, char *s);
 
 //ft_parsing.c
-int		check(char s);
-void	ft_cpy(char **info, char **res, int i, int k);
-void	ft_allocate(char **info, char **res);
-char	**ft_spliting(char **res);
-void	start_parsing(int fd);
+int				check(char s);
+void			ft_cpy(char **info, char **res, int i, int k);
+void			ft_allocate(char **info, char **res);
+char			**ft_spliting(char **res);
+void			start_parsing(int fd);
 
 //ft_util_split.c
-int		ft_ischar(char const s, char *c);
-char	**ft_split(char const *s, char *c);
+int				ft_ischar(char const s, char *c);
+char			**ft_split(char const *s, char *c);
 
 //ft_util_trim_end.c
-void	check_whitespaces(char **res);
-size_t	ft_check(char *set, char str);
-char	*ft_strtrim(char *s1, char *set);
+void			check_whitespaces(char **res);
+size_t			ft_check(char *set, char str);
+char			*ft_strtrim(char *s1, char *set);
 
 //ft_init_map.c
-void	path_init(t_info *vars, char	**s, int i, int j);
-void	init_pathcolor(t_info *vars, char **s);
-void	init_vars(t_info **vars);
-void	init_map(t_info *vars, char **mapi);
-void	init_map_info(char **map);
+void			path_init(t_info *vars, char	**s, int i, int j);
+void			init_pathcolor(t_info *vars, char **s);
+void			init_vars(t_info **vars);
+void			init_map(t_info *vars, char **mapi);
+void			init_map_info(char **map);
 
 //ft_init_info.c
-void	got_player_pos(t_info *vars);
-void	got_color_floor(t_info *vars, char *color);
-void	got_color_roof(t_info *vars, char *color);
+void			got_player_pos(t_info *vars);
+void			got_color_floor(t_info *vars, char *color);
+void			got_color_roof(t_info *vars, char *color);
 
 //ft_validation.c
-void	check_updown_walls(t_info vars);
-void	check_side_walls(t_info vars);
-void	check_position(t_info vars);
-void	check_objects(t_info vars);
-void	map_validation(t_info vars);
+void			check_updown_walls(t_info vars);
+void			check_side_walls(t_info vars);
+void			check_position(t_info vars);
+void			check_objects(t_info vars);
+void			map_validation(t_info vars);
 
 //ft_validation_second_part.c
-char	*path_cut(char **path, char *s, char **info, int flag);
-void	check_color(t_info vars);
-void	check_door(t_info vars);
-void	check_maze(t_info vars);
+char			*path_cut(char **path, char *s, char **info, int flag);
+void			get_maze(t_info *vars);
+void			check_color(t_info vars);
+void			check_door(t_info vars);
+void			check_maze(t_info vars);
 
 //ft_util_atoi.c
-int		ft_isdigit(int c);
-int		ft_atoi(char *str);
+int				ft_isdigit(int c);
+int				ft_atoi(char *str);
 
 //ft_util_trim.c
-char	*ft_strtrim_all(char *s1, char *set);
+char			*ft_strtrim_all(char *s1, char *set);
 
 //ft_util_list.c
-void	ft_lstclear(t_map **lst);
-t_map	*ft_lstnew(int len, char *row, int index);
-void	ft_addstack(t_map	**stack, char **res);
+void			ft_lstclear(t_map **lst);
+t_map			*ft_lstnew(int len, char *row, int index);
+void			ft_addstack(t_map	**stack, char **res);
+
+//ft_move.c
+int				key_press(int key, t_info *vars);
 
 //ft_start_game.c
-void	game_start(t_info vars);
+int				re_draw(t_info *vars);
+void			create_image(t_info *vars);
+void			set_wall_textures(t_info *vars);
+void			get_wall_textures(t_info *vars);
+void			game_start(t_info vars);
 
 //ft_game_exit.c
-int		press(t_info *vars);
+int				press(t_info *vars);
+
+//ft_algoritms.c
+int				calc_texture_x(t_info *vars);
+void			dda_algorithm(t_info *vars);
+void			ray_pos(t_info *vars, int w);
+void			calc_draw_ends(t_info *vars, t_draw *tex);
+void			step_dir(t_info *vars);
+
+//ft_draw.c
+int				create_trgb(int t, int r, int g, int b);
+void			my_mlx_pixel_put(t_img *img, int x, int y, int color);
+void			draw_texture(t_info *vars, int x, int tex_x);
+t_img			*choose_texture(t_info *vars);
+unsigned int	my_mlx_color_taker(t_img *data, int j, int i);
+
+//ft_raycasting.c
+void			draw_floor(t_info *vars);
+void			raycasting(t_info *vars);
 
 #endif
