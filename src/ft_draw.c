@@ -6,7 +6,7 @@
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:59:36 by nkarapet          #+#    #+#             */
-/*   Updated: 2024/06/13 20:47:33 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/14 21:15:37 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	create_trgb(int t, int r, int g, int b)
 
 unsigned int	my_mlx_color_taker(t_img *data, int j, int i)
 {
-	char	*dst;
+	char			*dst;
 
 	if (j >= 0 && j < data->wd && i >= 0 && i < data->ht)
 	{
@@ -40,7 +40,11 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 
 t_img	*choose_texture(t_info *vars)
 {
-	if (vars->ray.side == 1 && vars->ray.ray_y <= 0)
+	if (vars->ray.hit == 2)
+		return (&vars->cdoor);
+	else if (vars->ray.hit == 3)
+		return (&vars->odoor);
+	else if (vars->ray.side == 1 && vars->ray.ray_y <= 0)
 		return (vars->wall);
 	else if (vars->ray.side == 0 && vars->ray.ray_x > 0)
 		return (vars->wall + 1);
@@ -51,8 +55,8 @@ t_img	*choose_texture(t_info *vars)
 
 void	draw_texture(t_info *vars, int x, int tex_x)
 {
-	t_draw	tex;
-	int		y;
+	t_draw			tex;
+	int				y;
 
 	if (vars->ray.perp_wall_dist < 0.000001)
 		vars->ray.perp_wall_dist = 0.000001;

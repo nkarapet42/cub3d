@@ -6,7 +6,7 @@
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 16:47:27 by nkarapet          #+#    #+#             */
-/*   Updated: 2024/06/13 22:30:33 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/14 21:16:12 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@ void	destroy_img(t_info *vars)
 		mlx_destroy_image(vars->mlx.ptr, vars->wall[3].img);
 	else if (vars->img.img)
 		mlx_destroy_image(vars->mlx.ptr, vars->img.img);
+	else if (vars->cdoor.img)
+		mlx_destroy_image(vars->mlx.ptr, vars->cdoor.img);
+	else if (vars->odoor.img)
+		mlx_destroy_image(vars->mlx.ptr, vars->odoor.img);
 	free(vars->wall);
 }
 

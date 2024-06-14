@@ -6,7 +6,7 @@
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 15:03:05 by nkarapet          #+#    #+#             */
-/*   Updated: 2024/06/13 19:57:19 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/14 19:25:48 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	got_player_pos(t_info *vars)
 				vars->user.pos_y = j + 0.5;
 				vars->user.pos_x = map->index + 0.5;
 				set_dir(vars, map->row[j]);
-				map->row[j] = 'U';
+				map->row[j] = '0';
 				return ;
 			}
 			j++;

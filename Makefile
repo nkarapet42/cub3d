@@ -2,7 +2,7 @@ NAME = cub3d
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -I mlx -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -I mlx #-g3 -fsanitize=address
 LDFLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit
 
 HEADERS = inc/get_next_line.h inc/cub3d.h
@@ -25,9 +25,12 @@ SRCS_NAME = cub3d.c \
 			ft_validation_second_part.c \
 			ft_start_game.c \
 			ft_move.c \
+			ft_view.c \
+			ft_minimap.c \
 			ft_raycasting.c \
 			ft_algoritms.c \
 			ft_draw.c \
+			ft_set_textures.c \
 			ft_game_exit.c \
 			ft_free.c \
 			get_next_line.c \

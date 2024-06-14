@@ -6,7 +6,7 @@
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 16:25:48 by nkarapet          #+#    #+#             */
-/*   Updated: 2024/06/13 20:49:26 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/14 22:04:14 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,23 @@
 # include "../mlx/mlx.h"
 
 # define ESC 53
+# define E 14
 # define W 13
 # define A 0
 # define S 1
 # define D 2
 # define LARROW 123
 # define RARROW 124
+
+# define AROTATE 0.07
+# define MROTATE 0.03
+# define WSPEED 0.16 
+# define SSPEED 0.1
+# define ADSPEED 0.12
+
+# define MAP_WIDTH 36
+# define MAP_HEIGHT 11
+# define TILE_SIZE 10
 
 typedef struct s_img
 {
@@ -48,8 +59,8 @@ typedef struct s_raycasting
 	double	ray_x;
 	double	ray_y;
 	double	camera_x;
-	double	sidedist_x;
-	double	sidedist_y;
+	double	sdist_x;//side distance
+	double	sdist_y;//side distance
 	double	deltadist_x;
 	double	deltadist_y;
 	double	perp_wall_dist;
@@ -118,6 +129,8 @@ typedef struct s_info
 	t_xpm			mlx;
 	t_user			user;
 	t_img			img;
+	t_img			cdoor;
+	t_img			odoor;
 	t_raycasting	ray;
 	t_color			f_color;
 	t_color			r_color;
@@ -189,14 +202,26 @@ void			ft_lstclear(t_map **lst);
 t_map			*ft_lstnew(int len, char *row, int index);
 void			ft_addstack(t_map	**stack, char **res);
 
+//ft_view.c
+void			rotate_view(t_info *vars, double prevdir_x,
+					double prevplane_x, double rotate);
+void			change_view(t_info *vars, int side, double rotate);
+void			get_dir(t_info *vars);
+
+//ft_minimap.c
+void			draw_square(t_info *vars, int x, int y, int color);
+int				draw_minimap(t_info *vars);
+
 //ft_move.c
 int				key_press(int key, t_info *vars);
+void			move_right_left(t_info *vars, int key, double move);
+void			move_s(t_info *vars, double move);
+void			move_w(t_info *vars, double move);
+int				mouse_move(int x, int y, t_info *vars);
 
 //ft_start_game.c
 int				re_draw(t_info *vars);
-void			create_image(t_info *vars);
-void			set_wall_textures(t_info *vars);
-void			get_wall_textures(t_info *vars);
+void			init_img_info(t_info *vars);
 void			game_start(t_info vars);
 
 //ft_game_exit.c
@@ -215,6 +240,13 @@ void			my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void			draw_texture(t_info *vars, int x, int tex_x);
 t_img			*choose_texture(t_info *vars);
 unsigned int	my_mlx_color_taker(t_img *data, int j, int i);
+
+//ft_set_textures.c
+void			open_close_door(t_info *vars);
+void			get_door(t_img *door, t_info *vars, char *path);
+void			create_image(t_info *vars);
+void			set_wall_textures(t_info *vars);
+void			get_wall__textures(t_info *vars);
 
 //ft_raycasting.c
 void			draw_floor(t_info *vars);

@@ -6,7 +6,7 @@
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:41:04 by nkarapet          #+#    #+#             */
-/*   Updated: 2024/06/13 20:23:55 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/14 21:10:33 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,31 @@
 
 void	dda_algorithm(t_info *vars)
 {
-	vars->ray.hit = 0;
 	while (vars->ray.hit == 0)
 	{
-		if (vars->ray.sidedist_x < vars->ray.sidedist_y)
+		if (vars->ray.sdist_x < vars->ray.sdist_y)
 		{
-			vars->ray.sidedist_x += vars->ray.deltadist_x;
+			vars->ray.sdist_x += vars->ray.deltadist_x;
 			vars->user.map_x += vars->user.step_x;
 			vars->ray.side = 0;
 		}
 		else
 		{
-			vars->ray.sidedist_y += vars->ray.deltadist_y;
+			vars->ray.sdist_y += vars->ray.deltadist_y;
 			vars->user.map_y += vars->user.step_y;
 			vars->ray.side = 1;
 		}
 		if (vars->maze[vars->user.map_x][vars->user.map_y] == '1')
 			vars->ray.hit = 1;
+		else if (vars->maze[vars->user.map_x][vars->user.map_y] == 'D')
+			vars->ray.hit = 2;
+		else if (vars->maze[vars->user.map_x][vars->user.map_y] == 'O')
+			vars->ray.hit = 3;
 	}
 	if (vars->ray.side == 0)
-		vars->ray.perp_wall_dist = (vars->ray.sidedist_x
-				- vars->ray.deltadist_x);
+		vars->ray.perp_wall_dist = (vars->ray.sdist_x - vars->ray.deltadist_x);
 	else
-		vars->ray.perp_wall_dist = (vars->ray.sidedist_y
-				- vars->ray.deltadist_y);
+		vars->ray.perp_wall_dist = (vars->ray.sdist_y - vars->ray.deltadist_y);
 }
 
 void	ray_pos(t_info *vars, int w)
@@ -83,8 +84,8 @@ int	calc_texture_x(t_info *vars)
 		wall_x = vars->user.pos_y + vars->ray.perp_wall_dist * vars->ray.ray_y;
 	wall_x -= floor((wall_x));
 	tex_x = (int)(wall_x * (double)(64));
-	if ((vars->ray.side == 0 && vars->ray.ray_x > 0) \
-	|| (vars->ray.side == 1 && vars->ray.ray_y < 0))
+	if ((vars->ray.side == 0 && vars->ray.ray_x > 0)
+		|| (vars->ray.side == 1 && vars->ray.ray_y < 0))
 		tex_x = 64 - tex_x - 1;
 	return (tex_x);
 }
@@ -94,25 +95,25 @@ void	step_dir(t_info *vars)
 	if (vars->ray.ray_x < 0)
 	{
 		vars->user.step_x = -1;
-		vars->ray.sidedist_x = (vars->user.pos_x - vars->user.map_x)
+		vars->ray.sdist_x = (vars->user.pos_x - vars->user.map_x)
 			* vars->ray.deltadist_x;
 	}
 	else
 	{
 		vars->user.step_x = 1;
-		vars->ray.sidedist_x = (vars->user.map_x + 1.0 - vars->user.pos_x)
+		vars->ray.sdist_x = (vars->user.map_x + 1.0 - vars->user.pos_x)
 			* vars->ray.deltadist_x;
 	}
 	if (vars->ray.ray_y < 0)
 	{
 		vars->user.step_y = -1;
-		vars->ray.sidedist_y = (vars->user.pos_y - vars->user.map_y)
+		vars->ray.sdist_y = (vars->user.pos_y - vars->user.map_y)
 			* vars->ray.deltadist_y;
 	}
 	else
 	{
 		vars->user.step_y = 1;
-		vars->ray.sidedist_y = (vars->user.map_y + 1.0 - vars->user.pos_y)
+		vars->ray.sdist_y = (vars->user.map_y + 1.0 - vars->user.pos_y)
 			* vars->ray.deltadist_y;
 	}
 }
