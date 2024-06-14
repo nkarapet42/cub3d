@@ -6,14 +6,30 @@
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 16:47:27 by nkarapet          #+#    #+#             */
-/*   Updated: 2024/06/14 21:16:12 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/14 22:54:34 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
+void	destroy_gun(t_info *vars)
+{
+	if (vars->gun[0].img)
+		mlx_destroy_image(vars->mlx.ptr, vars->gun[0].img);
+	else if (vars->gun[1].img)
+		mlx_destroy_image(vars->mlx.ptr, vars->gun[1].img);
+	else if (vars->gun[2].img)
+		mlx_destroy_image(vars->mlx.ptr, vars->gun[2].img);
+	else if (vars->gun[3].img)
+		mlx_destroy_image(vars->mlx.ptr, vars->gun[3].img);
+	else if (vars->gun[4].img)
+		mlx_destroy_image(vars->mlx.ptr, vars->gun[4].img);
+}
+
 void	destroy_img(t_info *vars)
 {
+	if (vars->gun)
+		destroy_gun(vars);
 	if (vars->wall[0].img)
 		mlx_destroy_image(vars->mlx.ptr, vars->wall[0].img);
 	else if (vars->wall[1].img)

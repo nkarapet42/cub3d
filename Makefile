@@ -26,6 +26,7 @@ SRCS_NAME = cub3d.c \
 			ft_start_game.c \
 			ft_move.c \
 			ft_view.c \
+			ft_anim.c \
 			ft_minimap.c \
 			ft_raycasting.c \
 			ft_algoritms.c \

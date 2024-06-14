@@ -6,7 +6,7 @@
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 16:25:48 by nkarapet          #+#    #+#             */
-/*   Updated: 2024/06/14 22:04:14 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/14 23:09:54 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ typedef struct s_info
 	t_color			f_color;
 	t_color			r_color;
 	t_map			*map;
+	t_img			*gun;
 	t_img			*wall;
 }	t_info;
 
@@ -144,6 +145,7 @@ int				ft_strlen(char *str);
 int				map_name_check(char *str);
 
 //ft_free.c
+void			destroy_gun(t_info *vars);
 void			destroy_img(t_info *vars);
 void			free_and_error(char **str, int flag, char *s);
 void			ft_free_vars(t_info *vars, int flag, char *s);
@@ -219,8 +221,14 @@ void			move_s(t_info *vars, double move);
 void			move_w(t_info *vars, double move);
 int				mouse_move(int x, int y, t_info *vars);
 
+//ft_anim.c
+void			anim(t_info *vars);
+void			print_gun(t_info *vars, int i);
+
 //ft_start_game.c
 int				re_draw(t_info *vars);
+void			set_gun_textures(t_info *vars);
+void			get_gun_textures(t_info *vars);
 void			init_img_info(t_info *vars);
 void			game_start(t_info vars);
 
