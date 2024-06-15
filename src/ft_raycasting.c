@@ -6,7 +6,7 @@
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:57:58 by nkarapet          #+#    #+#             */
-/*   Updated: 2024/06/14 23:43:04 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/15 14:23:02 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ void	raycasting(t_info *vars)
 		vars->ray.hit = 0;
 		dda_algorithm(vars);
 		draw_texture(vars, w, calc_texture_x(vars));
-		if (w % 20 == 0)
-			anim(vars);
 	}
-	draw_minimap(vars);
+	anim(vars);
+	if (vars->hide_map == 1)
+		draw_minimap(vars);
 	mlx_put_image_to_window(vars->mlx.ptr, vars->mlx.win, vars->img.img, 0, 0);
 }

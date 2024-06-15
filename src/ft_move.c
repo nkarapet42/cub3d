@@ -6,7 +6,7 @@
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 18:15:03 by nkarapet          #+#    #+#             */
-/*   Updated: 2024/06/14 21:21:39 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/15 14:22:39 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	key_press(int key, t_info *vars)
 		move_s(vars, SSPEED);
 	else if (key == A || key == D)
 		move_right_left(vars, key, ADSPEED);
+	else if (key == M)
+		vars->hide_map *= -1;
 	return (0);
 }
 

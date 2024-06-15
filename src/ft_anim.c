@@ -6,7 +6,7 @@
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:57:05 by nkarapet          #+#    #+#             */
-/*   Updated: 2024/06/14 23:46:12 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/15 14:15:52 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,7 @@ void	anim(t_info *vars)
 	static int	i;
 	static int	count;
 
-	if (count % 200 == 0)
-	{
-		print_gun(vars, i);
-		i++;
-		if (i == 5)
-			i = 0;
-	}
-	if (count % 400 == 0)
+	if (count % 3 == 0)
 	{
 		print_gun(vars, i);
 		i++;
@@ -51,9 +44,8 @@ void	print_gun(t_info *vars, int i)
 		py = 0;
 		while (++y < vars->img.ht)
 		{
-			if (my_mlx_color_taker(&vars->gun[i], px, py) != 4278190080)
-				my_mlx_pixel_put(&vars->img, x, y,
-					my_mlx_color_taker(&vars->gun[i], px, py));
+			my_mlx_pixel_put(&vars->img, x, y,
+				my_mlx_color_taker(&vars->gun[i], px, py));
 			py++;
 		}
 		px++;

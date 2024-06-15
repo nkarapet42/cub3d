@@ -6,7 +6,7 @@
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 13:02:25 by nkarapet          #+#    #+#             */
-/*   Updated: 2024/06/14 23:33:42 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/15 14:21:26 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	init_img_info(t_info *vars)
 	vars->img.img = NULL;
 	vars->cdoor.img = NULL;
 	vars->odoor.img = NULL;
+	vars->hide_map = 1;
 	get_wall__textures(vars);
 	get_gun_textures(vars);
 	get_door(&vars->cdoor, vars, "./textures/CloseDoor.xpm");

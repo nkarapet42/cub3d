@@ -6,7 +6,7 @@
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 16:25:48 by nkarapet          #+#    #+#             */
-/*   Updated: 2024/06/14 23:09:54 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/15 14:22:09 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include "../mlx/mlx.h"
 
 # define ESC 53
+# define M 46
 # define E 14
 # define W 13
 # define A 0
@@ -119,6 +120,7 @@ typedef struct s_info
 	int				rc;//r_color
 	int				map_wd;
 	int				map_ht;
+	int				hide_map;
 	char			*npath;
 	char			*spath;
 	char			*wpath;
