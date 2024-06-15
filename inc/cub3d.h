@@ -6,7 +6,7 @@
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 16:25:48 by nkarapet          #+#    #+#             */
-/*   Updated: 2024/06/15 14:22:09 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/15 19:08:40 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 
 # define AROTATE 0.07
 # define MROTATE 0.03
-# define WSPEED 0.16 
+# define WSPEED 0.15
 # define SSPEED 0.1
 # define ADSPEED 0.12
 
@@ -109,7 +109,7 @@ typedef struct s_map
 {
 	int				len;
 	int				index;
-	char			*row;
+	char			*r;
 	struct s_map	*next;
 	struct s_map	*prev;
 }	t_map;
@@ -192,8 +192,13 @@ char			*path_cut(char **path, char *s, char **info, int flag);
 void			get_maze(t_info *vars);
 void			check_color(t_info vars);
 void			check_door(t_info vars);
-void			check_maze(t_info vars);
+void			check_maze(t_info vars, int j);
 
+//ft_tab_change.c
+int				ft_strtablen(char *s);
+int				cpy_line(char *res, char c, int l);
+char			*replace_tab(char *line);
+void			change_tabs(t_map **stack, t_info *vars);
 //ft_util_atoi.c
 int				ft_isdigit(int c);
 int				ft_atoi(char *str);

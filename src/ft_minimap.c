@@ -6,7 +6,7 @@
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 21:25:25 by nkarapet          #+#    #+#             */
-/*   Updated: 2024/06/14 22:07:55 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/15 19:18:00 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	draw_minimap(t_info *vars)
 		}
 		y++;
 	}
-	draw_square(vars, (int)vars->user.pos_x * TILE_SIZE,
-		(int)vars->user.pos_y * TILE_SIZE, 0x0000FF);
+	draw_square(vars, (int)(vars->user.pos_x * TILE_SIZE),
+		(int)(vars->user.pos_y * TILE_SIZE), 0x0000FF);
 	return (0);
 }

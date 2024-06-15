@@ -6,7 +6,7 @@
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 14:34:11 by nkarapet          #+#    #+#             */
-/*   Updated: 2024/06/13 22:29:15 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/15 19:08:35 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	init_map(t_info *vars, char **mapi)
 		free_and_error(mapi, 1, "There isn't map");
 	vars->map->next = NULL;
 	vars->map->prev = NULL;
+	vars->map->r = NULL;
 	if (mapi[6])
 		ft_addstack(&vars->map, mapi);
 	else
@@ -92,6 +93,7 @@ void	init_map_info(char **map)
 	free(map);
 	got_color_floor(&vars, vars.fcolor);
 	got_color_roof(&vars, vars.rcolor);
+	change_tabs(&vars.map, &vars);
 	count = 1;
 	while (vars.map->next)
 	{

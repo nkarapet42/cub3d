@@ -5,15 +5,15 @@
 	// printf("%s\n", vars.fcolor);
 	// printf("%s\n", vars.rcolor);
 	free(map);
-	// printf("%s\n", vars.map->row);
+	// printf("%s\n", vars.map->r);
 	// while(vars.map->next)
 	// {
-	// 	printf("%s\n", vars.map->next->row);
+	// 	printf("%s\n", vars.map->next->r);
 	// 	vars.map = vars.map->next;
 	// }
 	// printf("\n\n%p\n\n", vars.map);
 	// while(vars.map)
 	// {
-	// 	printf("%s\n", vars.map->row);
+	// 	printf("%s\n", vars.map->r);
 	// 	vars.map = vars.map->prev;
 	// }

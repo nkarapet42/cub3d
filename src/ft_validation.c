@@ -6,7 +6,7 @@
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:16:47 by nkarapet          #+#    #+#             */
-/*   Updated: 2024/06/13 17:10:26 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/15 19:08:35 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,18 @@ void	check_updown_walls(t_info vars)
 
 	map = vars.map;
 	j = 0;
-	while ((map->row[j] == '1' || check(map->row[j]) == 1)
-		&& map->row[j])
+	while ((map->r[j] == '1' || check(map->r[j]) == 1)
+		&& map->r[j])
 		j++;
-	if (map->row[j] != '\0')
+	if (map->r[j] != '\0')
 		ft_free_vars(&vars, 1, "Wrong map");
 	while (map->next)
 		map = map->next;
 	j = 0;
-	while ((map->row[j] == '1' || check(map->row[j]) == 1)
-		&& map->row[j])
+	while ((map->r[j] == '1' || check(map->r[j]) == 1)
+		&& map->r[j])
 		j++;
-	if (map->row[j] != '\0')
+	if (map->r[j] != '\0')
 		ft_free_vars(&vars, 1, "Wrong map");
 }
 
@@ -43,9 +43,9 @@ void	check_side_walls(t_info vars)
 	while (map)
 	{
 		j = 0;
-		while (check(map->row[j]) == 1)
+		while (check(map->r[j]) == 1)
 			j++;
-		if (map->row[j] != '1')
+		if (map->r[j] != '1')
 			ft_free_vars(&vars, 1, "Wrong map");
 		map = map->next;
 	}
@@ -53,9 +53,9 @@ void	check_side_walls(t_info vars)
 	while (map)
 	{
 		j = map->len - 1;
-		while (check(map->row[j]) == 1)
+		while (check(map->r[j]) == 1)
 			j--;
-		if (map->row[j] != '1')
+		if (map->r[j] != '1')
 			ft_free_vars(&vars, 1, "Wrong map");
 		map = map->next;
 	}
@@ -72,10 +72,10 @@ void	check_position(t_info vars)
 	while (map)
 	{
 		j = 0;
-		while (map->row[j])
+		while (map->r[j])
 		{
-			if (map->row[j] == 'N' || map->row[j] == 'S'
-				|| map->row[j] == 'E' || map->row[j] == 'W')
+			if (map->r[j] == 'N' || map->r[j] == 'S'
+				|| map->r[j] == 'E' || map->r[j] == 'W')
 				count++;
 			j++;
 		}
@@ -94,12 +94,12 @@ void	check_objects(t_info vars)
 	while (map)
 	{
 		j = 0;
-		while (map->row[j])
+		while (map->r[j])
 		{
-			if (map->row[j] != '0' && map->row[j] != '1' && map->row[j] != 'N'
-				&& map->row[j] != 'S' && map->row[j] != 'E'
-				&& map->row[j] != 'W' && map->row[j] != 'D'
-				&& check(map->row[j]) != 1)
+			if (map->r[j] != '0' && map->r[j] != '1' && map->r[j] != 'N'
+				&& map->r[j] != 'S' && map->r[j] != 'E'
+				&& map->r[j] != 'W' && map->r[j] != 'D'
+				&& check(map->r[j]) != 1)
 				ft_free_vars(&vars, 1, "Undefined object");
 			j++;
 		}
@@ -113,7 +113,7 @@ void	map_validation(t_info vars)
 	check_side_walls(vars);
 	check_objects(vars);
 	check_position(vars);
-	check_maze(vars);
+	check_maze(vars, 1);
 	check_door(vars);
 	check_color(vars);
 	got_player_pos(&vars);

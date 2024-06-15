@@ -6,7 +6,7 @@
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 16:35:27 by nkarapet          #+#    #+#             */
-/*   Updated: 2024/06/13 21:34:03 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/15 19:09:07 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	ft_lstclear(t_map **lst)
 	while (*lst)
 	{
 		tmp = (*lst)->next;
+		if ((*lst)->r != NULL)
+			free((*lst)->r);
 		free(*lst);
 		*lst = tmp;
 	}
@@ -35,7 +37,7 @@ t_map	*ft_lstnew(int len, char *row, int index)
 	if (!res)
 		return (NULL);
 	res->len = len;
-	res->row = row;
+	res->r = row;
 	res->index = index;
 	res->prev = NULL;
 	res->next = NULL;

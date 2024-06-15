@@ -6,7 +6,7 @@
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:13:16 by nkarapet          #+#    #+#             */
-/*   Updated: 2024/06/13 20:18:41 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/15 19:09:35 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ void	get_maze(t_info *vars)
 	vars->map_ht = 720;
 	while (vars->map->next)
 	{
-		vars->maze[i] = vars->map->row;
+		vars->maze[i] = vars->map->r;
 		i++;
 		vars->map = vars->map->next;
 	}
-	vars->maze[i++] = vars->map->row;
+	vars->maze[i++] = vars->map->r;
 	vars->maze[i] = NULL;
 	while (vars->map->prev)
 		vars->map = vars->map->prev;
@@ -77,41 +77,45 @@ void	check_door(t_info vars)
 	while (map->next)
 	{
 		j = 1;
-		while (map->row[j + 1])
+		if (j < map->len - 1)
 		{
-			if (map->row[j] == 'D'
-				&& !(map->row[j - 1] == '1' && map->row[j + 1] == '1')
-				&& !(map->prev->row[j] == '1' && map->next->row[j] == '1'))
-				ft_free_vars(&vars, 1, "Door in wrong place");
-			j++;
+			while (map->r[j + 1])
+			{
+				if (map->r[j] == 'D'
+					&& !(map->r[j - 1] == '1' && map->r[j + 1] == '1')
+					&& !(map->prev->r[j] == '1' && map->next->r[j] == '1'))
+					ft_free_vars(&vars, 1, "Door in wrong place");
+				j++;
+			}
 		}
 		map = map->next;
 	}
 }
 
-void	check_maze(t_info vars)
+void	check_maze(t_info vars, int j)
 {
-	int		j;
 	t_map	*map;
 
-	map = vars.map;
-	map = map->next;
+	map = vars.map->next;
 	while (map->next)
 	{
 		j = 1;
-		while (map->row[j + 1])
+		if (j < map->len - 1)
 		{
-			if ((j > map->next->len - 1 || j > map->prev->len - 1)
-				&& map->row[j] != '1' && check(map->row[j]) == 0)
-				ft_free_vars(&vars, 1, "Wrong map");
-			if (check(map->row[j]) == 1 || map->row[j] == '1')
-				j++;
-			else if (map->row[j] != '1' && check(map->row[j - 1]) == 0
-				&& check(map->row[j + 1]) == 0 && check(map->next->row[j]) == 0
-				&& check(map->prev->row[j]) == 0)
-				j++;
-			else
-				ft_free_vars(&vars, 1, "Wrong map");
+			while (map->r[j + 1])
+			{
+				if ((j > map->next->len - 1 || j > map->prev->len - 1)
+					&& map->r[j] != '1' && check(map->r[j]) == 0)
+					ft_free_vars(&vars, 1, "Wrong map");
+				if (check(map->r[j]) == 1 || map->r[j] == '1')
+					j++;
+				else if (map->r[j] != '1' && check(map->r[j - 1]) == 0
+					&& check(map->r[j + 1]) == 0 && check(map->next->r[j]) == 0
+					&& check(map->prev->r[j]) == 0)
+					j++;
+				else
+					ft_free_vars(&vars, 1, "Wrong map");
+			}
 		}
 		map = map->next;
 	}

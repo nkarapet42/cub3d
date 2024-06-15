@@ -6,7 +6,7 @@
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 15:03:05 by nkarapet          #+#    #+#             */
-/*   Updated: 2024/06/14 19:25:48 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/15 19:08:35 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,15 @@ void	got_player_pos(t_info *vars)
 	while (map)
 	{
 		j = 0;
-		while (map->row[j])
+		while (map->r[j])
 		{
-			if (map->row[j] == 'N' || map->row[j] == 'S'
-				|| map->row[j] == 'E' || map->row[j] == 'W')
+			if (map->r[j] == 'N' || map->r[j] == 'S'
+				|| map->r[j] == 'E' || map->r[j] == 'W')
 			{
 				vars->user.pos_y = j + 0.5;
 				vars->user.pos_x = map->index + 0.5;
-				set_dir(vars, map->row[j]);
-				map->row[j] = '0';
+				set_dir(vars, map->r[j]);
+				map->r[j] = '0';
 				return ;
 			}
 			j++;
