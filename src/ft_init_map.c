@@ -6,7 +6,7 @@
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 14:34:11 by nkarapet          #+#    #+#             */
-/*   Updated: 2024/06/15 19:08:35 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/25 14:37:25 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	init_pathcolor(t_info *vars, char **s)
 		path_init(vars, s, i, j);
 		i++;
 	}
+	if (i != 6)
+		free_and_error(s, 1, "Something went wrong with path");
 }
 
 void	init_vars(t_info **vars)

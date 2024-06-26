@@ -2,7 +2,7 @@ NAME = cub3d
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -I mlx -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -I mlx #-g3 -fsanitize=address
 LDFLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit
 
 HEADERS = inc/get_next_line.h inc/cub3d.h

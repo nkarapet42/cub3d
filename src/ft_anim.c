@@ -6,7 +6,7 @@
 /*   By: nkarapet <nkarapet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:57:05 by nkarapet          #+#    #+#             */
-/*   Updated: 2024/06/15 14:15:52 by nkarapet         ###   ########.fr       */
+/*   Updated: 2024/06/25 15:10:06 by nkarapet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	anim(t_info *vars)
 	static int	i;
 	static int	count;
 
-	if (count % 3 == 0)
+	if (count % 5 == 0)
 	{
 		print_gun(vars, i);
 		i++;
